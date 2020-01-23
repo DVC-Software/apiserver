@@ -1,5 +1,5 @@
 DB_IMAGE ?= mysql/mysql-server:latest
-DB_CONTAINER ?= mysql
+DB_CONTAINER ?= dvc_mysql
 HIDE ?= @
 DB_PORT ?= 3306
 DB_HOSTPORT ?= 3306
