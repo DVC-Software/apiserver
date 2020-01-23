@@ -9,15 +9,24 @@ VOLUME ?= mysqldata
 
 .PHONY:
 
-create-volume:
+rm-volume:
 	$(HIDE)docker volume rm $(VOLUME)
+
+create-volume:
 	$(HIDE)docker volume create --name $(VOLUME)
 
 start-db:
 	$(HIDE)docker-compose -f docker/docker-compose.yml up -d --build db 
 
-init-db: start-db
-	docker exec $(DB_CONTAINER) bash -c 'mysql -uroot -pdvcsoftware < /init/init.sql'
+init-db:
+	$(HIDE)$(MAKE) create-volume
+	$(HIDE)$(MAKE) start-db
+	SLEEP 5
+	$(HIDE)docker exec $(DB_CONTAINER) bash -c 'mysql -uroot -pdvcsoftware < /init/init.sql'
+
+reset-db: stop-db
+	$(HIDE)$(MAKE) rm-volume
+	$(HIDE)$(MAKE) init-db
 
 stop-db:
 	$(HIDE)echo stopping $(DB_CONTAINER)...
