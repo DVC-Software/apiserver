@@ -10,8 +10,8 @@ VOLUME ?= mysqldata
 .PHONY:
 
 create-volume:
-	$(HIDE)docker container rm $(VOLUME)
-	$(HIDE)docker create -v /home/user/mysql:/var/lib/mysql --name $(VOLUME) $(DB_IMAGE)
+	$(HIDE)docker volume rm $(VOLUME)
+	$(HIDE)docker volume create --name $(VOLUME)
 
 start-db:
 	$(HIDE)docker-compose -f docker/docker-compose.yml up -d --build db 
