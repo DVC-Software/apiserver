@@ -1,0 +1,23 @@
+version: '3'
+services:
+  db:
+    build:
+      context: ../mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: dvcsoftware
+      MYSQL_DATABASE: dvc_api_server
+      MYSQL_USER: dvcsoftware
+      MYSQL_PASSWORD: dvcsoftware
+    container_name: dvc_mysql
+    ports:
+      - "3306:3306"
+    tty: true
+  app:
+    build:
+      context: ..
+    container_name: dvc_api-server
+    ports:
+      - "8080:8080"
+    tty: true
+    depends_on:
+      - db
