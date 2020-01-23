@@ -1,0 +1,10 @@
+ENVIRONMENT=development
+
+MYSQL_USER=dvcsoftware
+MYSQL_PASSWORD=dvcsoftware
+MYSQL_ROOT_PASSWORD=dvcsoftware
+MYSQL_HOST=dvcsoftware
+
+MYSQL_DATABASE=dvc_api_server
+
+DVC_API_SERVER_PORT=8080
