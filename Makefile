@@ -12,10 +12,15 @@ NETWORK ?= bridge
 build:
 	$(HIDE)docker build -f Dockerfile -t $(DOCKER_IMAGE) $(PWD)
 
-start: start-db
-	$(HIDE)docker run -d -p $(PORT):$(HOSTPORT) --network=$(NETWORK) --name $(DOCKER_CONTAINER) $(DOCKER_IMAGE)
+start:
+	$(HIDE)docker-compose -f docker/docker-compose.yml up --build $(DOCKER_CONTAINER)
+
+daemon:
+	$(HIDE)docker-compose -f docker/docker-compose.yml up -d --build $(DOCKER_CONTAINER)
 
 stop: 
 	$(HIDE)docker stop $(DOCKER_CONTAINER)
 	$(HIDE)docker container rm $(DOCKER_CONTAINER)
-	$(HIDE)$(MAKE) stop-db
+
+rm:
+	$(HIDE)docker rm $(docker ps -a -q)
