@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   db:
     build:
@@ -17,10 +17,12 @@ services:
       timeout: 10s
       retries: 30
     restart: always
+    env_file:
+      - ${PWD}/docker/dev-env.rc
     tty: true
     volumes:
       - mysqldata:/var/lib/mysql
-  
+
   dvc_api_server:
     build:
       context: ..
@@ -30,7 +32,7 @@ services:
     tty: true
     depends_on:
       - db
-  
+
 volumes:
   mysqldata:
     driver: local
