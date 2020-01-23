@@ -17,6 +17,8 @@ services:
       timeout: 10s
       retries: 30
     restart: always
+    env_file:
+      - ${PWD}/docker/dev-env.rc
     tty: true
     volumes:
       - mysqldata:/var/lib/mysql
