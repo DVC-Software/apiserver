@@ -7,7 +7,7 @@ NETWORK ?= bridge
 
 -include mysql/db.mk
 
-.PHONY: 
+.PHONY: test
 
 build:
 	$(HIDE)docker build -f Dockerfile -t $(DOCKER_IMAGE) $(PWD)
@@ -21,6 +21,11 @@ daemon:
 stop: 
 	$(HIDE)docker stop $(DOCKER_CONTAINER)
 	$(HIDE)docker container rm $(DOCKER_CONTAINER)
+
+test:
+	$(HIDE)docker exec $(DB_CONTAINER) bash -c 'mysql -uroot -pdvcsoftware < /init/init_test.sql'
+	$(HIDE)docker-compose -f docker/docker-compose.yml up test
+	$(HIDE)docker-compose -f docker/docker-compose.yml rm -f -s $(DOCKER_CONTAINER)_test test
 
 rm:
 	$(HIDE)docker rm $(docker ps -a -q)
