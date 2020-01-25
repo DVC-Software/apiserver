@@ -39,7 +39,7 @@ jobs:
       - run:
           name: Initialize database
           command: |
-            make init-db
+            make init-db-ci
       # Test
       - run:
           name: Run Tests
