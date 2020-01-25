@@ -27,7 +27,7 @@ init-db:
 init-db-ci:
 	$(HIDE)$(MAKE) create-volume
 	$(HIDE)$(MAKE) start-db
-	sleep 35
+	sleep 20
 	$(HIDE)docker exec $(DB_CONTAINER) bash -c 'mysql -uroot -pdvcsoftware < /init/init.sql'
 
 reset-db: stop-db
