@@ -47,8 +47,6 @@ jobs:
             make test
 
 workflows:
-  version: 2
   build:
     jobs:
-      - build:
-          context: org-global
+      - build
