@@ -24,14 +24,45 @@ services:
       - mysqldata:/var/lib/mysql
 
   dvc_api_server:
+    depends_on:
+      - db
     build:
       context: ..
     container_name: dvc_api_server
     ports:
       - "8080:8080"
     tty: true
+    env_file: 
+      - ${PWD}/docker/dev-env.rc
+  
+  dvc_api_server_test:
     depends_on:
       - db
+    build:
+      context: ..
+    container_name: dvc_api_server_test
+    ports:
+      - "8070:8070"
+    tty: true
+    env_file: 
+      - ${PWD}/docker/dev-env.rc
+    environment:
+      - ENVIRONMENT=test
+
+  test:
+    depends_on:
+      - dvc_api_server_test
+    image: golang:latest
+    container_name: test
+    volumes:
+      - ${PWD}/test/tests:/go/test/tests
+      - ${PWD}/model:/go/src/github.com/DVC-Software/apiserver/model
+    ports:
+      - "4000:4000"
+    tty: true
+    command: go test -v ./test/tests
+    
+      
 
 volumes:
   mysqldata:

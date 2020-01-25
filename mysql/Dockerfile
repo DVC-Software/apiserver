@@ -1,6 +1,6 @@
 FROM mysql/mysql-server:latest
 
-COPY init.sql /init/
+COPY init.sql init_test.sql /init/
 
 # RUN mysql.server start
 
