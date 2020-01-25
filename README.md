@@ -13,3 +13,9 @@ make start		This will start the api server
 make stop		This will stop the api server container
 
 make stop-db		This will stop the mysql container
+
+
+## How to test?
+
+make test   This will initialize the test container and the api_server container using test db
+            After running test the test container and api_server container using test db will be removed
