@@ -31,4 +31,4 @@ rm:
 	$(HIDE)docker rm $(docker ps -a -q)
 
 rm-all:
-	$(HIDE)docker system prune
+	$(HIDE)docker system prune -f
