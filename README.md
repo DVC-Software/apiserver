@@ -5,6 +5,8 @@ DVC API server for database
 
 make init-db 		This will initialize the database with pre-set data
 
+	- If an access denied error occur when make init-db, please use docker exec -it dvc_mysql to run init/init.sql 
+
 make start		This will start the api server
 
 
