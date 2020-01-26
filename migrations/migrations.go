@@ -21,7 +21,7 @@ func ConnectDB() *gorm.DB {
 	} else {
 		dbName = dev_db_name
 	}
-	db, err := gorm.Open("mysql", "dvcsoftware:dvcsoftware@tcp(db:3306)/"+dbName+"?charset=utf8&parseTime=True&loc=Local")
+	db, err := gorm.Open("mysql", "rootdvcsoftware@tcp(db:3306)/"+dbName+"?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -42,7 +42,7 @@ func migrateDB(db *gorm.DB) {
 }
 
 func initDB(db *gorm.DB) {
-	db.Exec("GRANT ALL PRIVILEGES ON *.* TO 'dvcsoftware'@'%' WITH GRANT OPTION;")
+	db.Exec("GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;")
 	db.Exec("DROP DATABASE IF EXISTS dvc_api_server;")
 	db.Exec("CREATE DATABASE dvc_api_server;")
 	db.Exec("DROP DATABASE IF EXISTS dvc_api_server_test;")
