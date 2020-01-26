@@ -21,7 +21,7 @@ func ConnectDB() *gorm.DB {
 	} else {
 		dbName = dev_db_name
 	}
-	db, err := gorm.Open("mysql", "rootdvcsoftware@tcp(db:3306)/"+dbName+"?charset=utf8&parseTime=True&loc=Local")
+	db, err := gorm.Open("mysql", "root:dvcsoftware@tcp(db:3306)/"+dbName+"?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
 		panic(err.Error())
 	}
