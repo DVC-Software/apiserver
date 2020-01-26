@@ -1,4 +1,4 @@
-DOCKER_IMAGE ?= dvc-software/dvc_api_server
+DOCKER_IMAGE ?= dvc_api_server
 DOCKER_CONTAINER ?= dvc_api_server
 HIDE ?= @
 PORT ?= 8080
