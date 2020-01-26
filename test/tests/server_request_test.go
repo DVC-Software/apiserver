@@ -19,7 +19,6 @@ func TestDBPost(t *testing.T) {
 		n.Name = item
 		t.Run(item, func(t *testing.T) {
 			body, _ := json.Marshal(n)
-			fmt.Println(string(body))
 			resp, err := http.Post(endpointPrefix+"/db/post", "application/json", bytes.NewBuffer(body))
 			if err != nil {
 				t.Error(err.Error())
@@ -31,12 +30,11 @@ func TestDBPost(t *testing.T) {
 			defer resp.Body.Close()
 
 			data, err := ioutil.ReadAll(resp.Body)
-			var r model.Response
-			json.Unmarshal(data, &r)
+			json.Unmarshal(data, &n)
 
 			// Check response json
-			if r.Name.Name != item {
-				t.Errorf("TestDBPost: expectd %s but got %s", item, r.Name.Name)
+			if n.Name != item {
+				t.Errorf("TestDBPost: expectd %s but got %s", item, n.Name)
 			}
 		})
 	}

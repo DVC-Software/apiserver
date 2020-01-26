@@ -25,7 +25,7 @@ services:
 
   dvc_api_server:
     depends_on:
-      - db
+      - migrations
     build:
       context: ..
     container_name: dvc_api_server
@@ -55,14 +55,25 @@ services:
     image: golang:latest
     container_name: test
     volumes:
-      - ${PWD}/test/tests:/go/test/tests
+      - ${PWD}/test:/go/test
       - ${PWD}/model:/go/src/github.com/DVC-Software/apiserver/model
     ports:
       - "4000:4000"
     tty: true
-    command: go test -v ./test/tests
-    
-      
+    command: ./test/run_tests.sh
+
+  migrations:
+    depends_on: 
+      - db
+    image: golang:latest
+    container_name: migrations
+    volumes:
+      - ${PWD}/migrations:/go/migrations
+      - ${PWD}/model:/go/src/github.com/DVC-Software/apiserver/model
+    tty: true
+    environment: 
+      - ENVIRONMENT=development
+    command: ./migrations/migrate.sh
 
 volumes:
   mysqldata:

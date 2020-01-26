@@ -20,9 +20,7 @@ start-db:
 
 init-db:
 	$(HIDE)$(MAKE) create-volume
-	$(HIDE)$(MAKE) start-db
-	sleep 5
-	$(HIDE)docker exec $(DB_CONTAINER) bash -c 'mysql -uroot -pdvcsoftware < /init/init.sql'
+	$(HIDE)docker-compose -f docker/docker-compose.yml run --rm -e ENVIRONMENT=init migrations
 
 init-db-ci:
 	$(HIDE)$(MAKE) create-volume
