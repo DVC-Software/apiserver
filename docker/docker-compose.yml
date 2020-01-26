@@ -68,7 +68,7 @@ services:
     tty: true
     env_file: 
       - ${PWD}/docker/dev-env.rc
-    # command: ./migrations/migrate.sh
+    command: ./migrations/migrate.sh
 
 volumes:
   mysqldata:
