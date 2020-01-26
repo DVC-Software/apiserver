@@ -1,10 +1,11 @@
 package model
 
-type Name struct {
-	Name string `json:"name"`
-}
+import (
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm"
+)
 
-type Response struct {
-	Status bool `json:"status"`
-	Name   Name `json:"name"`
+type Name struct {
+	gorm.Model
+	Name string `json:"name"`
 }
