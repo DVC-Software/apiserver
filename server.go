@@ -42,8 +42,10 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", indexHandler).Methods("GET")
 	r.HandleFunc("/{name}", indexHandler).Methods("GET")
-	r.HandleFunc("/db/post", handler.WriteHandler).Methods("POST")
-	r.HandleFunc("/db/get", handler.ReadHandler).Methods("GET")
+	r.HandleFunc("/name/create", handler.CreateHandler).Methods("POST")
+	r.HandleFunc("/name/update/{id}", handler.UpdateHandler).Methods("PUT")
+	r.HandleFunc("/name/delete/{id}", handler.DeleteHandler).Methods("DELETE")
+	r.HandleFunc("/name/show", handler.ReadHandler).Methods("GET")
 	http.Handle("/", r)
 	port := getPortFromEnv()
 	srv := &http.Server{

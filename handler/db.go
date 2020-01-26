@@ -9,6 +9,11 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
+type Delete struct {
+	Status bool   `json:"successful"`
+	Id     string `json:"id"`
+}
+
 // Golbal
 var dev_db_name string = "dvc_api_server"
 var test_db_name string = "dvc_api_server_test"

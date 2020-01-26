@@ -25,6 +25,7 @@ stop:
 
 test:
 	$(HIDE)docker-compose -f docker/docker-compose.yml run --rm -e ENVIRONMENT=test migrations
+	$(HIDE)docker-compose -f docker/docker-compose.yml build $(DOCKER_CONTAINER)_test
 	$(HIDE)docker-compose -f docker/docker-compose.yml up test
 	$(HIDE)docker-compose -f docker/docker-compose.yml rm -f -s $(DOCKER_CONTAINER)_test test
 
