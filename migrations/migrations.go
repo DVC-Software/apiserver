@@ -42,7 +42,7 @@ func migrateDB(db *gorm.DB) {
 }
 
 func initDB(db *gorm.DB) {
-	db.Exec("GRANT ALL PRIVILEGES ON %.* TO 'dvcsoftware'@'%' WITH GRANT OPTION;")
+	db.Exec("GRANT ALL PRIVILEGES ON *.* TO 'dvcsoftware'@'%' WITH GRANT OPTION;")
 	db.Exec("DROP DATABASE IF EXISTS dvc_api_server;")
 	db.Exec("CREATE DATABASE dvc_api_server;")
 	db.Exec("DROP DATABASE IF EXISTS dvc_api_server_test;")

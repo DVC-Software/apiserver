@@ -4,6 +4,6 @@ MYSQL_USER=dvcsoftware
 MYSQL_PASSWORD=dvcsoftware
 MYSQL_ROOT_PASSWORD=dvcsoftware
 
-MYSQL_DATABASE=dvc_api_server, dvc_api_server_test
+MYSQL_DATABASE=dvc_api_server_test
 
 DVC_API_SERVER_PORT=8080
