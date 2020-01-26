@@ -4,12 +4,13 @@ HIDE ?= @
 PORT ?= 8080
 HOSTPORT ?= 8080
 NETWORK ?= bridge
+SERVICES = $(DOCKER_IMAGE) $(DOCKER_IMAGE)_test db
 
 -include mysql/db.mk
-
 .PHONY: test
 
 build:
+	$(HIDE)docker-compose -f docker/docker-compose.yml build $(SERVICES)
 	$(HIDE)docker build -f Dockerfile -t $(DOCKER_IMAGE) $(PWD)
 
 start:
@@ -31,4 +32,4 @@ rm:
 	$(HIDE)docker rm $(docker ps -a -q)
 
 rm-all:
-	$(HIDE)docker system prune -f
+	$(HIDE)docker system prune -a -f
