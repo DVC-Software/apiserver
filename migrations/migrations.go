@@ -10,18 +10,23 @@ import (
 )
 
 // Golbal
-var dev_db_name string = "dvc_api_server"
-var test_db_name string = "dvc_api_server_test"
+var dev_db_name string = os.Getenv("MYSQL_DATABASE")
+var test_db_name string = dev_db_name + "_test"
 var env string = os.Getenv("ENVIRONMENT")
+var user string = os.Getenv("MYSQL_USER")
+var password string = os.Getenv("MYSQL_PASSWORD")
 
 func ConnectDB() *gorm.DB {
 	var dbName string
 	if env == "test" {
 		dbName = test_db_name
+	} else if env == "init" {
+		user = "root"
 	} else {
 		dbName = dev_db_name
 	}
-	db, err := gorm.Open("mysql", "root:dvcsoftware@tcp(db:3306)/"+dbName+"?charset=utf8&parseTime=True&loc=Local")
+
+	db, err := gorm.Open("mysql", user+":"+password+"@tcp(db:3306)/"+dbName+"?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -43,10 +48,10 @@ func migrateDB(db *gorm.DB) {
 
 func initDB(db *gorm.DB) {
 	db.Exec("GRANT ALL PRIVILEGES ON *.* TO 'dvcsoftware'@'%' WITH GRANT OPTION;")
-	db.Exec("DROP DATABASE IF EXISTS dvc_api_server;")
-	db.Exec("CREATE DATABASE dvc_api_server;")
-	db.Exec("DROP DATABASE IF EXISTS dvc_api_server_test;")
-	db.Exec("CREATE DATABASE dvc_api_server_test;")
+	db.Exec("DROP DATABASE IF EXISTS " + dev_db_name + ";")
+	db.Exec("CREATE DATABASE " + dev_db_name + ";")
+	db.Exec("DROP DATABASE IF EXISTS " + test_db_name + ";")
+	db.Exec("CREATE DATABASE " + test_db_name + ";")
 }
 
 func main() {

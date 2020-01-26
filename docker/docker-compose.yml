@@ -3,11 +3,6 @@ services:
   db:
     build:
       context: ../mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: dvcsoftware
-      MYSQL_DATABASE: dvc_api_server
-      MYSQL_USER: dvcsoftware
-      MYSQL_PASSWORD: dvcsoftware
     container_name: dvc_mysql
     ports:
       - "3306:3306"
@@ -71,9 +66,9 @@ services:
       - ${PWD}/migrations:/go/migrations
       - ${PWD}/model:/go/src/github.com/DVC-Software/apiserver/model
     tty: true
-    environment: 
-      - ENVIRONMENT=development
-    command: ./migrations/migrate.sh
+    env_file: 
+      - ${PWD}/docker/dev-env.rc
+    # command: ./migrations/migrate.sh
 
 volumes:
   mysqldata:
