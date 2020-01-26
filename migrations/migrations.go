@@ -56,6 +56,7 @@ func initDB(db *gorm.DB) {
 
 func main() {
 	db := ConnectDB()
+	fmt.Println("migrating...")
 	if env == "init" {
 		initDB(db)
 	}
@@ -65,5 +66,6 @@ func main() {
 	} else {
 		migrateDB(db)
 	}
+	fmt.Printf("successfully migrated for %s \n", env)
 	defer db.Close()
 }
