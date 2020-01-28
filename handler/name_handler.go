@@ -9,21 +9,10 @@ import (
 	"net/http"
 )
 
-func ReadHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
-		db := ConnectDB()
-		var list []model.Name
-		db.Find(&list)
-		resp, _ := json.Marshal(list)
-		w.Write([]byte(resp))
-		defer db.Close()
-	} else {
-		ErrorResponse(w, 500, "Invalid method or headers")
-		return
-	}
-}
+var defaultName = model.Name{Name: "DEFAULT"}
+var nameSlice [][]model.Name
 
-func CreateHandler(w http.ResponseWriter, r *http.Request) {
+func NameCreateHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" && r.Header.Get("Content-Type") == "application/json" {
 		data, _ := ioutil.ReadAll(r.Body)
 		db := ConnectDB()
@@ -41,7 +30,21 @@ func CreateHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func UpdateHandler(w http.ResponseWriter, r *http.Request) {
+func NameReadHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "GET" {
+		db := ConnectDB()
+		var list []model.Name
+		db.Find(&list)
+		resp, _ := json.Marshal(list)
+		w.Write([]byte(resp))
+		defer db.Close()
+	} else {
+		ErrorResponse(w, 500, "Invalid method or headers")
+		return
+	}
+}
+
+func NameUpdateHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "PUT" && r.Header.Get("Content-Type") == "application/json" {
 		// Get id
 		id := mux.Vars(r)["id"]
@@ -70,7 +73,7 @@ func UpdateHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func DeleteHandler(w http.ResponseWriter, r *http.Request) {
+func NameDeleteHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "DELETE" {
 		// Get id
 		id := mux.Vars(r)["id"]

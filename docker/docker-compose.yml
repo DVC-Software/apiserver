@@ -32,7 +32,7 @@ services:
   
   dvc_api_server_test:
     depends_on:
-      - db
+      - migrations
     build:
       context: ..
     container_name: dvc_api_server_test
