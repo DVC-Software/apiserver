@@ -14,6 +14,7 @@ import (
 // Golbal
 var dev_port string = "0.0.0.0:8080"
 var test_port string = "0.0.0.0:8070"
+var url_prefix string = "/"
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -42,11 +43,13 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", indexHandler).Methods("GET")
 	r.HandleFunc("/{name}", indexHandler).Methods("GET")
-	r.HandleFunc("/name/create", handler.CreateHandler).Methods("POST")
-	r.HandleFunc("/name/update/{id}", handler.UpdateHandler).Methods("PUT")
-	r.HandleFunc("/name/delete/{id}", handler.DeleteHandler).Methods("DELETE")
-	r.HandleFunc("/name/show", handler.ReadHandler).Methods("GET")
-	http.Handle("/", r)
+	r.HandleFunc("/name/create", handler.NameCreateHandler).Methods("POST")
+	r.HandleFunc("/name/update/{id}", handler.NameUpdateHandler).Methods("PUT")
+	r.HandleFunc("/name/delete/{id}", handler.NameDeleteHandler).Methods("DELETE")
+	r.HandleFunc("/name/show", handler.NameReadHandler).Methods("GET")
+	r.HandleFunc("/member/create", handler.MemberCreateHandler).Methods("POST")
+	r.HandleFunc("/member/info/{id}", handler.MemberInfoHandler).Methods("GET")
+	http.Handle(url_prefix, r)
 	port := getPortFromEnv()
 	srv := &http.Server{
 		Handler: r,

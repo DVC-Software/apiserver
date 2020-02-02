@@ -11,7 +11,6 @@ SERVICES = $(DOCKER_IMAGE) $(DOCKER_IMAGE)_test db
 
 build:
 	$(HIDE)docker-compose -f docker/docker-compose.yml build $(SERVICES)
-	$(HIDE)docker build -f Dockerfile -t $(DOCKER_IMAGE) $(PWD)
 
 start:
 	$(HIDE)docker-compose -f docker/docker-compose.yml up --build $(DOCKER_CONTAINER)
