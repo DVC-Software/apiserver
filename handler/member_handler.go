@@ -38,6 +38,7 @@ func MemberCreateHandler(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Content-Type", "application/json")
 		w.Write(bytes)
 		defer db.Close()
+		return
 	} else {
 		ErrorResponse(w, 500, "Invalid method or headers")
 		return
