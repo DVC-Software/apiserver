@@ -49,6 +49,7 @@ func main() {
 	r.HandleFunc("/name/show", handler.NameReadHandler).Methods("GET")
 	r.HandleFunc("/member/create", handler.MemberCreateHandler).Methods("POST")
 	r.HandleFunc("/member/info/{id}", handler.MemberInfoHandler).Methods("GET")
+	r.HandleFunc("/training/create", handler.TrainingSessionCreateHandler).Methods("POST")
 	http.Handle(url_prefix, r)
 	port := getPortFromEnv()
 	srv := &http.Server{

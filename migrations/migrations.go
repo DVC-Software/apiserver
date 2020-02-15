@@ -44,8 +44,8 @@ func migrateTestDB(db *gorm.DB) {
 func migrateDB(db *gorm.DB) {
 	// Migrate all tables
 	db.Exec("Use " + dev_db_name)
-	db.DropTableIfExists(&model.Name{}, &model.Member{}, &model.Profile{}, &model.Position{})
-	db.AutoMigrate(&model.Name{}, &model.Member{}, &model.Profile{}, &model.Position{})
+	db.DropTableIfExists(&model.Name{}, &model.Member{}, &model.Profile{}, &model.Position{}, &model.TrainingSession{})
+	db.AutoMigrate(&model.Name{}, &model.Member{}, &model.Profile{}, &model.Position{}, &model.TrainingSession{})
 }
 
 func initDB(db *gorm.DB) {
